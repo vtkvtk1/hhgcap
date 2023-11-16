@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="UTF-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>HHG Capital - Investment</title>
+
+    <meta name="author" content="themsflat.com">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Boostrap style -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/bootstrap.min.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/style.css">
+
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/colors/color1.css" id="colors">
+
+    <!-- Reponsive -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/responsive.css">
+
+    <!-- Favicon and touch icons  -->
+    <link href="icon/apple-touch-icon-48-precomposed.png" rel="apple-touch-icon-precomposed">
+    <link href="icon/apple-touch-icon-32-precomposed.png" rel="apple-touch-icon-precomposed">
+    <link href="icon/favicon.png" rel="shortcut icon">
+
+</head>
+
+<body>
+    <div class="boxed blog">
+        <!-- Preloader -->
+        <div id="loading-overlay">
+            <div class="loader"></div>
+        </div>
+
+        <%- include('./partials/innernav.ejs') %>
+
+
+        <section class="error-404 not-found" style="background-color: rgb(14, 24, 43);">
+            <div class="container">
+                <h2 style="font-size: 2.5em; color: rgba(219, 219, 219, 0.842);">Your investment plans</h2>
+                <% if(investments.length > 0) { %>
+                    <table id="table">
+                        <thead>
+                            <tr>
+                                <td><b class="name">Plan</b></td>
+                                <td><b class="name">Amount</b></td>
+                                <td><b class="name">Status</b></td>
+                                <td><b class="name">Activation date</b></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% investments.forEach((investment)=>{ %>
+                                <tr>
+                                    <td><b><%=`${investment.tier}`%></b></td>
+                                    <td>
+                                        <%=`$${investment.amountInvested}`%>
+                                    </td>
+                                    <td>
+                                        <%=`${investment.status}`%>
+                                    </td>
+                                    <td>
+                                        <%= investment.createdAt.toString().slice(0,15) %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                    <% } else { %>
+                        <div style="background-color: rgb(255, 89, 89); padding: 10px;">
+                            <h4>No active investments yet</h4>
+                            <a style="color:midnightblue; font-weight: bolder;" href="deposit">Fund account now</a><span> to purchase a plan and start earning</span>
+                        </div>
+                        <% } %>
+            </div>
+            <div class="container">
+                <br>
+                <h2 style="font-size: 2.5em; color: rgba(219, 219, 219, 0.842);">Choose a plan</h2>
+                <br>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <% plans.forEach((plan)=>{ %>
+                        <div class="col-md-4">
+                            <div class="price-wrapper center basic" style="background-color: rgba(100, 148, 237, 0.596);">
+                                <div class="content-post">
+                                    <div class="price-header">
+                                        <h3 class="title"><%=`${plan.name}`%></h3>
+                                        <div class="price-number">
+                                            <%=`$${plan.min}`%><span class="price-subprice"> minimum</span>
+    
+                                            <ul style="font-size: 0.5em; margin-top: 20px;">
+                                                <li><span><i class="fa fa-star"></i></span> <%=`$${plan.min}`%> - <%=`$${plan.max}`%></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="price-content">
+                                        <div class="price-desc">
+                                            <ul>
+    
+                                                <li><span><i class="fa fa-star"></i></span> <%=`${plan.profit}`%>% weekly profit</li>
+                                                <br>
+                                                <!-- <li><span><i class="fa fa-star"></i></span> <%=`${plan.hours}`%> weekly return</li> -->
+                                                <br>
+                                                
+                                            </ul>
+                                        </div>
+                                        <form action="/invest" method="POST">
+                                            <input type="number" class="form-control" style="width: 180%; margin: 10px auto" placeholder="Input amount to Invest" id="amountInput" name="amountInvested" min="<%=`${plan.min}`%>" max="<%=`${plan.max}`%>" required />
+        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= `${user._id}` %>" name="user" />
+        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= user.balance %>" name="userBalance" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%=`${plan.name}`%>" name="tier" />
+        
+                                            <input style="margin: 10px; border: none" class="see-brd-btn" type="submit" value="Invest" />
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- ./content-post -->
+                            </div>
+                            <!-- /.price-wrapper -->
+                        </div>
+                        <% }) %>                  
+                </div>
+            </div>
+            
+
+            <!-- /.container -->
+        </section>
+        <!-- /.error-404 -->
+
+        <%- include('./partials/footer.ejs') %>
+        <!-- /#footer_background -->
+
+        <div class="button-go-top ">
+            <a href="# " title=" " class="go-top ">
+                <i class="fa fa-chevron-up "></i>
+            </a>
+        </div>
+        <!-- /.button-go-top -->
+
+    </div>
+    <!-- /.boxed -->
+
+    <!-- Javascript -->
+    <script type="text/javascript " src="javascript/jquery.min.js "></script>
+    <script type="text/javascript " src="javascript/tether.min.js "></script>
+    <script type="text/javascript " src="javascript/bootstrap.min.js "></script>
+    <script type="text/javascript " src="javascript/jquery.flexslider-min.js "></script>
+    <script type="text/javascript " src="javascript/owl.carousel.js "></script>
+    <script type="text/javascript " src="javascript/jquery.easing.js "></script>
+
+    <script type="text/javascript " src="javascript/jquery.cookie.js "></script>
+    <script type="text/javascript " src="javascript/waypoints.min.js "></script>
+    <script type="text/javascript " src="javascript/main.js "></script>
+    <script>
+        const amountInput = document.getElementById("amountInput");
+        const amountDisplay = document.getElementById("amountDisplay");
+        amountInput.addEventListener("input", (e) => {
+            e.preventDefault()
+            amountDisplay.innerHTML = amountInput.value || 0
+        });
+
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+    </script>
+    <script>
+        let allForms = document.forms;
+        for (let i = 0; i < allForms.length; i++) {
+            allForms[i].addEventListener("submit", (e) => {
+                let value = parseInt(allForms[i].amountInvested.value);
+                let userBalance = parseInt(allForms[i].userBalance.value);
+                if (value > userBalance) {
+                    alert("Sorry, user balance is not sufficient");
+                    e.preventDefault();
+                }
+            });
+        }
+    </script>
+    <!-- End Javascript -->
+    <script src="//code.tidio.co/g4ea1fv74msllgodkmhyqvmoo0lq1nuw.js" async></script>
+</body>
+
+</html>

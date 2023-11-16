@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="UTF-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>HHG Capital - Dashboard</title>
+
+    <meta name="author" content="themsflat.com">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Boostrap style -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/bootstrap.min.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/style.css">
+
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/colors/color1.css" id="colors">
+
+    <!-- Reponsive -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/responsive.css">
+
+    <!-- Favicon and touch icons  -->
+    <link href="icon/apple-touch-icon-48-precomposed.png" rel="apple-touch-icon-precomposed">
+    <link href="icon/apple-touch-icon-32-precomposed.png" rel="apple-touch-icon-precomposed">
+    <link href="icon/favicon.png" rel="shortcut icon">
+
+</head>
+
+<body>
+    <div class="boxed blog">
+        <!-- Preloader -->
+        <div id="loading-overlay">
+            <div class="loader"></div>
+        </div>
+
+        <%- include('./partials/innernav.ejs') %>
+
+
+        <section class="error-404 not-found" style="background-color: rgb(14, 24, 43);">
+            <div class="container margin-bottom-list">
+                <div class="row animatedParent">
+                    <div class="col-xl-9 col-lg-9 col-12 animated bounceInLeft">
+                        <p style="color: #561313;"><strong>Referral link:
+                                <%= `https://hhg-capital.onrender.com/sign-up?referrer=${user.username}` %></strong></p>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-12 animated bounceInLeft">
+                        <p style="color: #561313;"><strong>
+                            <a style="color: blue; text-decoration: underline;" href="deposit">Click here to make a deposit</a>
+                        </strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row" style="justify-content: center;">
+
+                    <div class="col-xl-2 col-lg-12 col-md-12 d-flex align-items-center justify-content-center" style="margin: 15px; height: 130px; width: 100%; background-color: rgba(219, 219, 219, 0.842); text-align: center; text-justify: auto; justify-items: center;">
+                        <h2 style="font-family: Geneva, Tahoma, sans-serif; font-weight: 700;" >DEPOSITS:</h2>
+                        <p style="margin-left: 5px; font-weight: 900;"><%=`$${user.deposits}`%></p>
+                    </div>
+                    <div class="col-xl-2 col-lg-12 col-md-12 d-flex align-items-center justify-content-center" style="margin: 15px; height: 130px; width: 100%; background-color: rgba(219, 219, 219, 0.842);">
+                        <h2 style="font-family: Geneva, Tahoma, sans-serif; font-weight: 700;" >PROFIT:</h2>
+                        <p style="margin-left: 5px; font-weight: 900;"><%=`$${user.profit}`%></p>
+                        
+                    </div>
+                    <div class="col-xl-2 col-lg-12 col-md-12 d-flex align-items-center justify-content-center" style="margin: 15px; height: 130px; width: 100%; background-color: rgba(219, 219, 219, 0.842); ">
+                        <h2 style="font-family: Geneva, Tahoma, sans-serif; font-weight: 700;" >REF BONUS:</h2>
+                        <p style="margin-left: 5px; font-weight: 900;"><%=`$${user.refBonus}`%></p>
+                        
+                    </div>
+                    <div class="col-xl-2 col-lg-12 col-md-12 d-flex align-items-center justify-content-center" style="margin: 15px; height: 130px; width: 100%; background-color: rgba(219, 219, 219, 0.842); ">
+                        <h2 style="font-family: Geneva, Tahoma, sans-serif; font-weight: 700;" >BALANCE:</h2>
+                        <p style="margin-left: 5px; font-weight: 900;"><%=`$${user.balance}`%></p>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row" style="justify-content: center;">
+                    <div class="container">
+                        <div class="tradingview-widget-container" style="margin: 30px 0px 10px 0px">
+                            <div id="tradingview_f933e"></div>
+                            <div class="tradingview-widget-copyright">
+                                <a href="#" rel="noopener" target="_blank"><span class="blue-text"></span>
+                                    <span class="blue-text">Personal trading chart</span>
+                                    </a>
+                            </div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                            <script type="text/javascript">
+                                new TradingView.widget({
+                                    width: "100%",
+                                    height: 410,
+                                    symbol: "FX:EURUSD",
+                                    interval: "1",
+                                    timezone: "Etc/UTC",
+                                    theme: "Dark",
+                                    style: "9",
+                                    locale: "en",
+                                    toolbar_bg: "#f1f3f6",
+                                    enable_publishing: false,
+                                    hide_side_toolbar: false,
+                                    allow_symbol_change: true,
+                                    calendar: true,
+                                    studies: ["BB@tv-basicstudies"],
+                                    container_id: "tradingview_f933e",
+                                });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="white-box" style="height: 450px">
+                            <h4 style="margin-bottom: 5px">Forex Market Fundamental Data</h4>
+                            <!-- TradingView Widget BEGIN -->
+
+                            <span id="tradingview-copyright"><a ref="nofollow noopener" target="_blank" href="http://www.tradingview.com"
+style="
+color: rgb(173, 174, 176);
+font-family: 'Trebuchet MS', Tahoma, Arial, sans-serif;
+font-size: 13px;
+"></a></span>
+                            <script src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js">
+                                {
+                                    "currencies": [
+                                        "EUR",
+                                        "USD",
+                                        "JPY",
+                                        "BTC",
+                                        "ETH",
+                                        "LTC",
+                                        "GBP",
+                                        "CHF",
+                                        "AUD",
+                                        "CAD",
+                                        "NZD",
+                                        "CNY"
+                                    ],
+                                    "width": "100%",
+                                    "height": "100%",
+                                    "colorTheme": "dark",
+                                    "locale": "en"
+                                }
+                            </script>
+                        </div>
+
+                        <!-- TradingView Widget END -->
+                    </div>
+                    <!-- TradingView Widget END -->
+                </div>
+            </div>
+            <!-- /.container -->
+        </section>
+        <!-- /.error-404 -->
+
+        <%- include('./partials/footer.ejs') %>
+        <!-- /#footer_background -->
+
+        <div class="button-go-top ">
+            <a href="# " title=" " class="go-top ">
+                <i class="fa fa-chevron-up "></i>
+            </a>
+        </div>
+        <!-- /.button-go-top -->
+
+    </div>
+    <!-- /.boxed -->
+
+    <!-- Javascript -->
+    <script type="text/javascript " src="javascript/jquery.min.js "></script>
+    <script type="text/javascript " src="javascript/tether.min.js "></script>
+    <script type="text/javascript " src="javascript/bootstrap.min.js "></script>
+    <script type="text/javascript " src="javascript/jquery.flexslider-min.js "></script>
+    <script type="text/javascript " src="javascript/owl.carousel.js "></script>
+    <script type="text/javascript " src="javascript/jquery.easing.js "></script>
+
+    <script type="text/javascript " src="javascript/jquery.cookie.js "></script>
+    <script type="text/javascript " src="javascript/waypoints.min.js "></script>
+    <script type="text/javascript " src="javascript/main.js "></script>
+    <!-- End Javascript -->
+    <script src="//code.tidio.co/g4ea1fv74msllgodkmhyqvmoo0lq1nuw.js" async></script>
+</body>
+
+</html>

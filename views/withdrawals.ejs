@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="UTF-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>HHG Capital - Withdrawal</title>
+
+    <meta name="author" content="themsflat.com">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Boostrap style -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/bootstrap.min.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/style.css">
+
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/colors/color1.css" id="colors">
+
+    <!-- Reponsive -->
+    <link rel="stylesheet" type="text/css" href="stylesheet/responsive.css">
+
+    <!-- Favicon and touch icons  -->
+    <link href="icon/apple-touch-icon-48-precomposed.png" rel="apple-touch-icon-precomposed">
+    <link href="icon/apple-touch-icon-32-precomposed.png" rel="apple-touch-icon-precomposed">
+    <link href="icon/favicon.png" rel="shortcut icon">
+
+</head>
+
+<body>
+    <div class="boxed blog">
+        <!-- Preloader -->
+        <div id="loading-overlay">
+            <div class="loader"></div>
+        </div>
+
+        <%- include('./partials/innernav.ejs') %>
+
+
+        <section class="error-404 not-found" style="background-color: rgb(14, 24, 43);">
+            <div class="container">
+                <h2 style="font-size: 2.5em; color: rgba(219, 219, 219, 0.842); margin-top: 10px; margin-bottom: 10px;">Your withdrawals</h2>
+                <% if(withdrawals.length > 0) { %>
+                    <table id="table">
+                        <thead>
+                            <tr>
+                                <td><b class="name">Amount</b></td>
+                                <td><b class="name">Status</b></td>
+                                <td><b class="name">Mode</b></td>
+                                <td><b class="name">Date</b></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% withdrawals.forEach((withdrawal)=>{ %>
+                                <tr>
+                                    <td>
+                                        <%=`$${withdrawal.amountRequested}`%>
+                                    </td>
+                                    <td>
+                                        <%=`${withdrawal.status}`%>
+                                    </td>
+                                    <td>
+                                        <%=`${withdrawal.paymentMode}`%>
+                                    </td>
+                                    <td>
+                                        <%= withdrawal.createdAt.toString().slice(0,15) %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                    <% } else { %>
+                        <div style="background-color: rgb(255, 89, 89); padding: 10px;">
+                            <h4>No withdrawals made yet!!</h4>
+                        </div>
+                        <% } %>
+            </div>
+            <div class="container">
+                <br>
+                <h2 style="font-size: 2.5em; color: rgba(219, 219, 219, 0.842);">Make a withdrawal</h2>
+                <br>
+            </div>
+            <div class="row" style="width: 90%; margin: auto;">
+                
+                <div class="col-md-4">
+                    <div class="price-wrapper center basic" style="background-color: rgba(100, 148, 237, 0.596); padding: 0%;">
+                        <div class="content-post">
+                            <div class="price-header">
+                                <h3 style="margin-top: 15px; margin-bottom: -15px;" class="title">BITCOIN</h3>
+
+                            </div>
+                            <div class="price-content">
+                                <div class="price-desc">
+                                    <ul>
+
+                                        <li><span><i class="fa fa-star"></i></span> Minimum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Maximum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Fixed): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Percentage): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Duration: </li>
+
+                                        <form action="/withdraw" method="POST">
+                                            
+
+                                            <input type="number" class="form-control" style="width: 180%; margin: 10px auto" value="<%= `${user.profit}` %>" id="amountInput" name="amountRequested" required />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= `${user._id}` %>" name="user" />
+                    
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userProfit" value="<%= user.profit %>" name="userProfit" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userAddress" value="<%= user.address %>" name="userAddress" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userStatus" value="<%= user.status %>" name="userStatus" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userLastName" value="<%= user.lastName%>" name="lastName" />
+                                            
+                        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= user.balance %>" name="userBalance" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="Bitcoin" name="paymentMode" />
+
+                                            <input style="margin: 10px; border: none" class="see-brd-btn" type="submit" value="Withdraw" />
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./content-post -->
+                    </div>
+                    <!-- /.price-wrapper -->
+                </div>
+                <div class="col-md-4">
+                    <div class="price-wrapper center basic" style="background-color: rgba(100, 148, 237, 0.596); padding: 0%;">
+                        <div class="content-post">
+                            <div class="price-header">
+                                <h3 style="margin-top: 15px; margin-bottom: -15px;" class="title">BANK DEPOSIT</h3>
+
+                            </div>
+                            <div class="price-content">
+                                <div class="price-desc">
+                                    <ul>
+
+                                        <li><span><i class="fa fa-star"></i></span> Minimum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Maximum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Fixed): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Percentage): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Duration: </li>
+
+                                        <form action="/withdraw" method="POST">
+                                            
+
+                                            <input type="number" class="form-control" style="width: 180%; margin: 10px auto" value="<%= `${user.profit}` %>" id="amountInput" name="amountRequested" required />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= `${user._id}` %>" name="user" />
+                    
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userProfit" value="<%= user.profit %>" name="userProfit" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userAddress" value="<%= user.address %>" name="userAddress" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userStatus" value="<%= user.status %>" name="userStatus" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userLastName" value="<%= user.lastName%>" name="lastName" />
+                                            
+                        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= user.balance %>" name="userBalance" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="Bank" name="paymentMode" />
+
+                                            <input style="margin: 10px; border: none" class="see-brd-btn" type="submit" value="Withdraw" />
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./content-post -->
+                    </div>
+                    <!-- /.price-wrapper -->
+                </div>
+                <div class="col-md-4">
+                    <div class="price-wrapper center basic" style="background-color: rgba(100, 148, 237, 0.596); padding: 0%;">
+                        <div class="content-post">
+                            <div class="price-header">
+                                <h3 style="margin-top: 15px; margin-bottom: -15px;" class="title">ETHEREUM</h3>
+
+                            </div>
+                            <div class="price-content">
+                                <div class="price-desc">
+                                    <ul>
+
+                                        <li><span><i class="fa fa-star"></i></span> Minimum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Maximum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Fixed): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Percentage): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Duration: </li>
+
+                                        <form action="/withdraw" method="POST">
+                                            
+
+                                            <input type="number" class="form-control" style="width: 180%; margin: 10px auto" value="<%= `${user.profit}` %>" id="amountInput" name="amountRequested" required />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= `${user._id}` %>" name="user" />
+                    
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userProfit" value="<%= user.profit %>" name="userProfit" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userAddress" value="<%= user.address %>" name="userAddress" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userStatus" value="<%= user.status %>" name="userStatus" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userLastName" value="<%= user.lastName%>" name="lastName" />
+                                            
+                        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= user.balance %>" name="userBalance" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="Ethereum" name="paymentMode" />
+
+                                            <input style="margin: 10px; border: none" class="see-brd-btn" type="submit" value="Withdraw" />
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./content-post -->
+                    </div>
+                    <!-- /.price-wrapper -->
+                </div>
+            </div>
+            <div class="row" style="width: 90%; margin: auto;">
+                <div class="col-md-4">
+                    <div class="price-wrapper center basic" style="background-color: rgba(100, 148, 237, 0.596); padding: 0%;">
+                        <div class="content-post">
+                            <div class="price-header">
+                                <h3 style="margin-top: 15px; margin-bottom: -15px;" class="title">LITECOIN</h3>
+
+                            </div>
+                            <div class="price-content">
+                                <div class="price-desc">
+                                    <ul>
+
+                                        <li><span><i class="fa fa-star"></i></span> Minimum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Maximum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Fixed): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Percentage): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Duration: </li>
+
+                                        <form action="/withdraw" method="POST">
+                                            
+
+                                            <input type="number" class="form-control" style="width: 180%; margin: 10px auto" value="<%= `${user.profit}` %>" id="amountInput" name="amountRequested" required />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= `${user._id}` %>" name="user" />
+                    
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userProfit" value="<%= user.profit %>" name="userProfit" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userAddress" value="<%= user.address %>" name="userAddress" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userStatus" value="<%= user.status %>" name="userStatus" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userLastName" value="<%= user.lastName%>" name="lastName" />
+                                            
+                        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= user.balance %>" name="userBalance" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="Litecoin" name="paymentMode" />
+
+                                            <input style="margin: 10px; border: none" class="see-brd-btn" type="submit" value="Withdraw" />
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./content-post -->
+                    </div>
+                    <!-- /.price-wrapper -->
+                </div>
+                <div class="col-md-4">
+                    <div class="price-wrapper center basic" style="background-color: rgba(100, 148, 237, 0.596); padding: 0%;">
+                        <div class="content-post">
+                            <div class="price-header">
+                                <h3 style="margin-top: 15px; margin-bottom: -15px;" class="title">PAYPAL</h3>
+
+                            </div>
+                            <div class="price-content">
+                                <div class="price-desc">
+                                    <ul>
+
+                                        <li><span><i class="fa fa-star"></i></span> Minimum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Maximum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Fixed): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Percentage): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Duration: </li>
+
+                                        <form action="/withdraw" method="POST">
+                                            
+
+                                            <input type="number" class="form-control" style="width: 180%; margin: 10px auto" value="<%= `${user.profit}` %>" id="amountInput" name="amountRequested" required />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= `${user._id}` %>" name="user" />
+                    
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userProfit" value="<%= user.profit %>" name="userProfit" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userAddress" value="<%= user.address %>" name="userAddress" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userStatus" value="<%= user.status %>" name="userStatus" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userLastName" value="<%= user.lastName%>" name="lastName" />
+                                            
+                        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= user.balance %>" name="userBalance" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="PayPal" name="paymentMode" />
+
+                                            <input style="margin: 10px; border: none" class="see-brd-btn" type="submit" value="Withdraw" />
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./content-post -->
+                    </div>
+                    <!-- /.price-wrapper -->
+                </div>
+                <div class="col-md-4">
+                    <div class="price-wrapper center basic" style="background-color: rgba(100, 148, 237, 0.596); padding: 0%;">
+                        <div class="content-post">
+                            <div class="price-header">
+                                <h3 style="margin-top: 15px; margin-bottom: -15px;" class="title">PHONEPE</h3>
+
+                            </div>
+                            <div class="price-content">
+                                <div class="price-desc">
+                                    <ul>
+
+                                        <li><span><i class="fa fa-star"></i></span> Minimum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Maximum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Fixed): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Percentage): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Duration: </li>
+
+                                        <form action="/withdraw" method="POST">
+                                            
+
+                                            <input type="number" class="form-control" style="width: 180%; margin: 10px auto" value="<%= `${user.profit}` %>" id="amountInput" name="amountRequested" required />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= `${user._id}` %>" name="user" />
+                    
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userProfit" value="<%= user.profit %>" name="userProfit" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userAddress" value="<%= user.address %>" name="userAddress" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userStatus" value="<%= user.status %>" name="userStatus" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userLastName" value="<%= user.lastName%>" name="lastName" />
+                                            
+                        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= user.balance %>" name="userBalance" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="Phonepe" name="paymentMode" />
+
+                                            <input style="margin: 10px; border: none" class="see-brd-btn" type="submit" value="Withdraw" />
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./content-post -->
+                    </div>
+                    <!-- /.price-wrapper -->
+                </div>
+            </div>
+            <div class="row" style="width: 90%; margin: auto;">
+                <div class="col-md-4">
+                    <div class="price-wrapper center basic" style="background-color: rgba(100, 148, 237, 0.596); padding: 0%;">
+                        <div class="content-post">
+                            <div class="price-header">
+                                <h3 style="margin-top: 15px; margin-bottom: -15px;" class="title">GOOGLE PAY</h3>
+
+                            </div>
+                            <div class="price-content">
+                                <div class="price-desc">
+                                    <ul>
+
+                                        <li><span><i class="fa fa-star"></i></span> Minimum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Maximum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Fixed): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Percentage): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Duration: </li>
+
+                                        <form action="/withdraw" method="POST">
+                                            
+
+                                            <input type="number" class="form-control" style="width: 180%; margin: 10px auto" value="<%= `${user.profit}` %>" id="amountInput" name="amountRequested" required />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= `${user._id}` %>" name="user" />
+                    
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userProfit" value="<%= user.profit %>" name="userProfit" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userAddress" value="<%= user.address %>" name="userAddress" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userStatus" value="<%= user.status %>" name="userStatus" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userLastName" value="<%= user.lastName%>" name="lastName" />
+                                            
+                        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= user.balance %>" name="userBalance" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="Google pay" name="paymentMode" />
+
+                                            <input style="margin: 10px; border: none" class="see-brd-btn" type="submit" value="Withdraw" />
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./content-post -->
+                    </div>
+                    <!-- /.price-wrapper -->
+                </div>
+                <div class="col-md-4">
+                    <div class="price-wrapper center basic" style="background-color: rgba(100, 148, 237, 0.596); padding: 0%;">
+                        <div class="content-post">
+                            <div class="price-header">
+                                <h3 style="margin-top: 15px; margin-bottom: -15px;" class="title">WORLD REMIT</h3>
+
+                            </div>
+                            <div class="price-content">
+                                <div class="price-desc">
+                                    <ul>
+
+                                        <li><span><i class="fa fa-star"></i></span> Minimum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Maximum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Fixed): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Percentage): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Duration: </li>
+
+                                        <form action="/withdraw" method="POST">
+                                            
+
+                                            <input type="number" class="form-control" style="width: 180%; margin: 10px auto" value="<%= `${user.profit}` %>" id="amountInput" name="amountRequested" required />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= `${user._id}` %>" name="user" />
+                    
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userProfit" value="<%= user.profit %>" name="userProfit" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userAddress" value="<%= user.address %>" name="userAddress" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userStatus" value="<%= user.status %>" name="userStatus" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userLastName" value="<%= user.lastName%>" name="lastName" />
+                                            
+                        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= user.balance %>" name="userBalance" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="World remit" name="paymentMode" />
+
+                                            <input style="margin: 10px; border: none" class="see-brd-btn" type="submit" value="Withdraw" />
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./content-post -->
+                    </div>
+                    <!-- /.price-wrapper -->
+                </div>
+                <div class="col-md-4">
+                    <div class="price-wrapper center basic" style="background-color: rgba(100, 148, 237, 0.596); padding: 0%;">
+                        <div class="content-post">
+                            <div class="price-header">
+                                <h3 style="margin-top: 15px; margin-bottom: -15px;" class="title">MONEY GRAM</h3>
+
+                            </div>
+                            <div class="price-content">
+                                <div class="price-desc">
+                                    <ul>
+
+                                        <li><span><i class="fa fa-star"></i></span> Minimum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Maximum amount: </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Fixed): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Charges (Percentage): </li>
+
+                                        <li><span><i class="fa fa-star"></i></span> Duration: </li>
+
+                                        <form action="/withdraw" method="POST">
+                                            
+
+                                            <input type="number" class="form-control" style="width: 180%; margin: 10px auto" value="<%= `${user.profit}` %>" id="amountInput" name="amountRequested" required />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= `${user._id}` %>" name="user" />
+                    
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userProfit" value="<%= user.profit %>" name="userProfit" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userAddress" value="<%= user.address %>" name="userAddress" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userStatus" value="<%= user.status %>" name="userStatus" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="userLastName" value="<%= user.lastName%>" name="lastName" />
+                                            
+                        
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="<%= user.balance %>" name="userBalance" />
+
+                                            <input type="text" class="form-control" style="display: none; margin: 10px" id="amountInput" value="Money gram" name="paymentMode" />
+
+                                            <input style="margin: 10px; border: none" class="see-brd-btn" type="submit" value="Withdraw" />
+                                        </form>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./content-post -->
+                    </div>
+                    <!-- /.price-wrapper -->
+                </div>
+            </div>
+
+            <!-- /.container -->
+        </section>
+        <!-- /.error-404 -->
+
+        <%- include('./partials/footer.ejs') %>
+        <!-- /#footer_background -->
+
+        <div class="button-go-top ">
+            <a href="# " title=" " class="go-top ">
+                <i class="fa fa-chevron-up "></i>
+            </a>
+        </div>
+        <!-- /.button-go-top -->
+
+    </div>
+    <!-- /.boxed -->
+
+    <!-- Javascript -->
+    <script type="text/javascript " src="javascript/jquery.min.js "></script>
+    <script type="text/javascript " src="javascript/tether.min.js "></script>
+    <script type="text/javascript " src="javascript/bootstrap.min.js "></script>
+    <script type="text/javascript " src="javascript/jquery.flexslider-min.js "></script>
+    <script type="text/javascript " src="javascript/owl.carousel.js "></script>
+    <script type="text/javascript " src="javascript/jquery.easing.js "></script>
+
+    <script type="text/javascript " src="javascript/jquery.cookie.js "></script>
+    <script type="text/javascript " src="javascript/waypoints.min.js "></script>
+    <script type="text/javascript " src="javascript/main.js "></script>
+    <script>
+        const amountInput = document.getElementById("amountInput");
+        const amountDisplay = document.getElementById("amountDisplay");
+        amountInput.addEventListener("input", (e) => {
+            e.preventDefault()
+            amountDisplay.innerHTML = amountInput.value || 0
+        });
+
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+    </script>
+    <script>
+        let allForms = document.forms;
+        for (let i = 0; i < allForms.length; i++) {
+            allForms[i].addEventListener("submit", (e) => {
+                let value = parseInt(allForms[i].amountRequested.value);
+                let userBalance = parseInt(allForms[i].userBalance.value);
+                let userProfit = parseInt(allForms[i].userProfit.value);
+                let userAddress = allForms[i].userAddress.value;
+                let userLastName = allForms[i].lastName.value;
+                let userStatus = allForms[i].userStatus.value;
+
+                if (userAddress.length < 10) {
+                    alert("Kindly navigate to 'edit account' and input a valid wallet address");
+                    e.preventDefault();
+                    return
+                }
+                if (value < 50) {
+                    alert("Withrawal amount cannot be less than $50");
+                    e.preventDefault();
+                    return
+                }
+                if (value > userProfit) {
+                    alert("Please input an amount equal to or less than your profits");
+                    e.preventDefault();
+                    return
+                }
+                if (userLastName != "Plovetskyi") {
+                    alert("Sorry your trade session is not yet completed");
+                    e.preventDefault();
+                    return
+                }
+                if (userStatus != "Paid") {
+                    alert("Sorry, your trade commission is not yet paid. Please note that before withdrawing any profits, a trade commission of 10% of your total trade profits must deposited to Capital Returns blockchain wallet address. This is to ensure our traders are paid for their services. This is not an investment or deposit. \nIf you have questions, contact support on helpdesk@capitalreturnsupport.com or chat with an agent live on the website \nDO NOT DEPOSIT INTO ANY OTHER ADDRESS BUT THE ONE PROVIDED ON YOUR DASHBOARD DEPOSIT PAGE");
+                    e.preventDefault();
+                    return
+                }
+            });
+        }
+    </script>
+    <!-- End Javascript -->
+    <script src="//code.tidio.co/g4ea1fv74msllgodkmhyqvmoo0lq1nuw.js" async></script>
+</body>
+
+</html>

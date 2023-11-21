@@ -36,7 +36,6 @@ const UserSchema = new Schema(
       required: [true, "Please input a password"],
       trim: true,
       select: false,
-      minlength: 6,
     },
     referrals: {
       type: Number,
